@@ -1,4 +1,4 @@
-# Hackerrang
-Solutions of Hackerrang challenges
+# Hackerrank
+Solutions of Hackerrank challenges
 
 https://www.hackerrank.com/
