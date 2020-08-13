@@ -3,6 +3,8 @@ package de.ts.hackerrang.solvemefirst;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/solve-me-first
+ * <p>
  * Complexity: O(1)
  */
 public class Solution {

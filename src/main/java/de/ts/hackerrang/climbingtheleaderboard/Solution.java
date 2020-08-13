@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem
+ * <p>
  * Complexity: O(n)
  */
 public class Solution {

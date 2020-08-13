@@ -5,6 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * https://www.hackerrank.com/challenges/designer-pdf-viewer/problem
+ * <p>
+ * Complexity: O(n)
+ */
 public class Solution {
 
     private static final int ASCII_INDEX_FIRST_LOWERCASE_LETTER = 97;

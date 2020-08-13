@@ -3,6 +3,8 @@ package de.ts.hackerrang.staircase;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/staircase/problem
+ * <p>
  * Complexity: O(n)
  */
 public class Solution {

@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * https://www.hackerrank.com/challenges/diagonal-difference/problem
+ * <p>
  * Complexity: O(n)
  */
 class Result {

@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 /**
  * Complexity: O(1)
+ * <p>
+ * https://www.hackerrank.com/challenges/time-conversion
  */
 public class Solution {
 

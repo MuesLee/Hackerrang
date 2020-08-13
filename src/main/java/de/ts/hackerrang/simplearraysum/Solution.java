@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/simple-array-sum
+ * <p>
  * Complexity: O(n)
  */
 public class Solution {

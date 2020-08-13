@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/magic-square-forming/problem
+ * <p>
  * Complexity(1)
  * <p>
  * There is essentially just one possible 3x3 magic square,

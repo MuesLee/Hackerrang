@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
+ * https://www.hackerrank.com/challenges/mini-max-sum/problem
+ * <p>
  * Complexity: O(n log(n))
  */
 public class Solution {

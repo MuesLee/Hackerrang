@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * https://www.hackerrank.com/challenges/the-hurdle-race
+ * <p>
+ * Complexity: O(n)
+ */
 public class Solution {
 
     private static final Scanner scanner = new Scanner(System.in);
