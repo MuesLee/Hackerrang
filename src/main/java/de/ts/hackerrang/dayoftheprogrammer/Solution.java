@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 

@@ -18,7 +18,7 @@ import java.util.Scanner;
  * This solution sums the differences of the given 3x3 square to the known 8 combinations
  * and finds the smallest one.
  */
-public class Solution {
+class Solution {
 
     private static final int[][] POSSIBLE_MAGIC_SQUARE_FORM_1 = {
             {2, 7, 6},

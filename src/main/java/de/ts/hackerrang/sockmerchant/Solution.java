@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     private static final Scanner scanner = new Scanner(System.in);
 

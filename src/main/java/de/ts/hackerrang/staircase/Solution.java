@@ -7,7 +7,7 @@ import java.util.Scanner;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     // Complete the staircase function below.
     static void staircase(int maxStairLevel) {

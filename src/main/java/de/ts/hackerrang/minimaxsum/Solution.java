@@ -8,7 +8,7 @@ import java.util.Scanner;
  * <p>
  * Complexity: O(n log(n))
  */
-public class Solution {
+class Solution {
 
     // Complete the miniMaxSum function below.
     static void miniMaxSum(int[] arr) {
@@ -16,7 +16,7 @@ public class Solution {
 
         long totalSum = Arrays.stream(arr).asLongStream().sum();
         long maxSum = totalSum - arr[0];
-        long minSum = totalSum - arr[arr.length-1];
+        long minSum = totalSum - arr[arr.length - 1];
 
         System.out.print(minSum + " " + maxSum);
     }

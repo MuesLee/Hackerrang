@@ -7,7 +7,7 @@ import java.util.Scanner;
  * <p>
  * Complexity: O(1)
  */
-public class Solution {
+class Solution {
 
 
     static int solveMeFirst(int a, int b) {

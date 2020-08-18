@@ -10,7 +10,7 @@ import java.util.Scanner;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     private static final int ASCII_INDEX_OF_LOWERCASE_A = 97;
     private static final Scanner scanner = new Scanner(System.in);

@@ -11,7 +11,7 @@ import java.util.Scanner;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     static long aVeryBigSum(long[] ar) {
         return Arrays.stream(ar).sum();

@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toList;
  * <p>
  * Complexity: O(n)
  */
-public class Solution {
+class Solution {
 
     // Complete the bonAppetit function below.
     static void bonAppetit(List<Integer> bill, int indexOfSkippedMeal, int calculatedShare) {

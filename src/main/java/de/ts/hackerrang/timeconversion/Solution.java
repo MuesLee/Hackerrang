@@ -14,7 +14,7 @@ import java.util.Scanner;
  * <p>
  * https://www.hackerrank.com/challenges/time-conversion
  */
-public class Solution {
+class Solution {
 
     private static final Scanner scan = new Scanner(System.in);
 
