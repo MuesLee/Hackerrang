@@ -3,15 +3,13 @@ package de.ts.hackerrang.arraymanipulation;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 /**
  * https://www.hackerrank.com/challenges/crush/problem
  * <p>
- * Complexity: O(n)
+ * Complexity: O(n * log n)
  */
 class Solution {
 
@@ -36,6 +34,17 @@ class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
+        long result = parseAndExecuteArrayManipulation(scanner);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+
+    static long parseAndExecuteArrayManipulation(Scanner scanner) {
         String[] nm = scanner.nextLine().split(" ");
 
         int n = Integer.parseInt(nm[0]);
@@ -54,14 +63,7 @@ class Solution {
             }
         }
 
-        long result = arrayManipulation(n, queries);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();
+        return arrayManipulation(n, queries);
     }
 
     static final class Node {
@@ -70,7 +72,7 @@ class Solution {
         int rangeEnd;
         long maxSum;
 
-        Node parent;
+        final Node parent;
 
         Node leftChild;
         Node rightChild;
@@ -86,18 +88,6 @@ class Solution {
             }
         }
 
-        public Node getParent() {
-            return parent;
-        }
-
-        public void setParent(Node parent) {
-            this.parent = parent;
-        }
-
-        public List<Node> getChildren() {
-            return Arrays.asList(leftChild, rightChild);
-        }
-
         public boolean isLeaf() {
             if (leftChild == null && rightChild != null) throw new IllegalStateException();
             if (rightChild == null && leftChild != null) throw new IllegalStateException();
@@ -109,25 +99,16 @@ class Solution {
             return rangeStart;
         }
 
-        public void setRangeStart(int rangeStart) {
-            this.rangeStart = rangeStart;
-        }
 
         public int getRangeEnd() {
             return rangeEnd;
         }
 
-        public void setRangeEnd(int rangeEnd) {
-            this.rangeEnd = rangeEnd;
-        }
 
         public long getMaxSum() {
             return maxSum;
         }
 
-        public void setMaxSum(long maxSum) {
-            this.maxSum = maxSum;
-        }
 
         public Node getLeftChild() {
             return leftChild;
@@ -147,18 +128,24 @@ class Solution {
         }
 
         public long addIntervalValue(int rangeStart, int rangeEnd, long addValue) {
-            if (this.rangeStart == rangeStart && this.rangeEnd == rangeEnd) {
-                this.maxSum += addValue;
+            if (!this.isLeaf()) {
+                if (rangeEnd <= this.leftChild.rangeEnd) {
+                    this.maxSum = Math.max(this.maxSum, this.leftChild.addIntervalValue(rangeStart, rangeEnd, addValue));
+                } else if (rangeStart >= this.rightChild.rangeStart) {
+                    this.maxSum = Math.max(this.maxSum, this.rightChild.addIntervalValue(rangeStart, rangeEnd, addValue));
+                } else {
+                    this.maxSum = Math.max(this.maxSum, this.leftChild.addIntervalValue(rangeStart, this.leftChild.rangeEnd, addValue));
+                    this.maxSum = Math.max(this.maxSum, this.rightChild.addIntervalValue(this.leftChild.rangeEnd + 1, rangeEnd, addValue));
+                }
+
+                this.rangeStart = Math.min(this.rangeStart, rangeStart);
+                this.rangeEnd = Math.max(this.rangeEnd, rangeEnd);
+
                 return this.maxSum;
             }
 
-            if (!this.isLeaf()) {
-                if (rangeEnd > this.leftChild.getRangeEnd()) {
-                    this.maxSum = Math.max(this.maxSum, this.rightChild.addIntervalValue(rangeStart, rangeEnd, addValue));
-                } else {
-                    this.maxSum = Math.max(this.maxSum, this.leftChild.addIntervalValue(rangeStart, rangeEnd, addValue));
-                }
-
+            if (this.rangeStart == rangeStart && this.rangeEnd == rangeEnd) {
+                this.maxSum += addValue;
                 return this.maxSum;
             }
 
@@ -166,34 +153,65 @@ class Solution {
             int oldRangeEnd = this.rangeEnd;
             long oldMaxSum = this.maxSum;
 
-            if (oldRangeStart > rangeEnd || oldRangeEnd < rangeStart) {
+            boolean hasSameStart = rangeStart == oldRangeStart;
+            boolean hasSameEnd = oldRangeEnd == rangeEnd;
+
+            boolean newIntervalStartsAfterOld = oldRangeStart < rangeStart;
+            boolean newIntervalEndsBeforeOld = oldRangeEnd > rangeEnd;
+
+            boolean newIntervalEndsLeftOfOld = oldRangeStart > rangeEnd;
+            boolean newIntervalStartsRightOfOld = oldRangeEnd < rangeStart;
+
+            if (newIntervalEndsLeftOfOld || newIntervalStartsRightOfOld) {
 
                 this.rangeStart = Math.min(rangeStart, oldRangeStart);
                 this.rangeEnd = Math.max(rangeEnd, oldRangeEnd);
 
                 this.maxSum = Math.max(oldMaxSum, addValue);
 
-                if (oldRangeStart < rangeStart) {
+                if (newIntervalStartsAfterOld) {
                     this.leftChild = new Node(this, oldRangeStart, oldRangeEnd, oldMaxSum);
                     this.rightChild = new Node(this, rangeStart, rangeEnd, addValue);
                 } else {
                     this.rightChild = new Node(this, oldRangeStart, oldRangeEnd, oldMaxSum);
                     this.leftChild = new Node(this, rangeStart, rangeEnd, addValue);
                 }
-
+                return this.maxSum;
             }
 
-            if (oldRangeStart == rangeStart && oldRangeEnd > rangeEnd) {
+
+            if (hasSameStart && newIntervalEndsBeforeOld) {
                 this.leftChild = new Node(this, oldRangeStart, rangeEnd, oldMaxSum + addValue);
                 this.rightChild = new Node(this, rangeEnd + 1, oldRangeEnd, oldMaxSum);
-                this.maxSum = Math.max(oldMaxSum + addValue, addValue);
             }
 
-            if (oldRangeStart < rangeStart && oldRangeEnd == rangeEnd) {
+            if (newIntervalStartsAfterOld && hasSameEnd) {
                 this.leftChild = new Node(this, oldRangeStart, rangeStart - 1, oldMaxSum);
                 this.rightChild = new Node(this, rangeStart, oldRangeEnd, oldMaxSum + addValue);
-                this.maxSum = Math.max(oldMaxSum + addValue, addValue);
             }
+
+            if (hasSameStart && rangeEnd > oldRangeEnd) {
+                this.leftChild = new Node(this, rangeStart, oldRangeEnd, addValue + oldMaxSum);
+                this.rightChild = new Node(this, oldRangeEnd + 1, rangeEnd, addValue);
+            }
+            if (hasSameStart && rangeEnd < oldRangeEnd) {
+                this.leftChild = new Node(this, rangeStart, rangeEnd, addValue + oldMaxSum);
+                this.rightChild = new Node(this, rangeEnd + 1, oldRangeEnd, oldMaxSum);
+            }
+            if (hasSameEnd && rangeStart < oldRangeStart) {
+                this.leftChild = new Node(this, rangeStart, oldRangeStart - 1, addValue);
+                this.rightChild = new Node(this, oldRangeStart, oldRangeEnd, oldMaxSum + addValue);
+            }
+            if (newIntervalStartsAfterOld && newIntervalEndsBeforeOld) {
+                this.leftChild = new Node(this, oldRangeStart, rangeStart - 1, oldMaxSum);
+                this.rightChild = new Node(this, rangeEnd + 1, oldRangeEnd, oldMaxSum);
+
+                this.leftChild.addIntervalValue(rangeStart, rangeEnd, addValue + oldMaxSum);
+            }
+
+            this.rangeStart = Math.min(rangeStart, oldRangeStart);
+            this.rangeEnd = Math.max(rangeEnd, oldRangeEnd);
+            this.maxSum = Math.max(oldMaxSum + addValue, addValue);
 
             return this.maxSum;
         }
