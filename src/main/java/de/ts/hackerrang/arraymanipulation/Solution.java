@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * https://www.hackerrank.com/challenges/crush/problem
  * <p>
- * Complexity: O(n * log n)
+ * Complexity: O(n)
  */
 class Solution {
 
