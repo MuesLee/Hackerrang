@@ -8,8 +8,8 @@ public class SlopeTrackingStrategy implements ArrayManipulationStrategy {
         long[] slopeStorage = new long[n];
 
         for (int[] slopeRange : queries) {
-            int rangeStart = slopeRange[0];
-            int rangeEnd = slopeRange[1];
+            int rangeStart = slopeRange[0] - 1;
+            int rangeEnd = slopeRange[1] - 1;
             int slope = slopeRange[2];
 
             slopeStorage[rangeStart] += slope;
