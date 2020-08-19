@@ -36,8 +36,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <parallel>all</parallel>
-                    <threadCountClasses>3</threadCountClasses>
-                    <threadCountMethods>6</threadCountMethods>
+                    <threadCount>10</threadCount>
                     <parallelTestsTimeoutInSeconds>18000</parallelTestsTimeoutInSeconds>
                 </configuration>
             </plugin>
